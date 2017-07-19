@@ -4,6 +4,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route, browserHistory } from 'react-router';
 
+
 // Pages
 import Signup from '../imports/ui/Signup';
 import ProfileSettings from '../imports/ui/ProfileSettings';
@@ -15,6 +16,8 @@ import Login from '../imports/ui/Login';
 
 // browserHistory
 window.browserHistory = browserHistory;
+
+
 
 // Routing
 const routes = (
