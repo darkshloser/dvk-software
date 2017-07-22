@@ -3,6 +3,7 @@ import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route, browserHistory } from 'react-router';
+import { Tracker } from 'meteor/tracker';
 
 // Pages
 import Signup from '../imports/ui/Signup';
@@ -13,8 +14,28 @@ import AccountManager from '../imports/ui/AccountManager';
 import NotFound from '../imports/ui/NotFound';
 import Login from '../imports/ui/Login';
 
+// Pages which can and can't be loaded regarding authentication status (if user is loged in or not)
+const unauthenticatedPages = ['/signup', '/login'];
+const authenticatedPages = ['/profilesettings', '/approom', '/accountmanager'];
+
 // browserHistory
-window.browserHistory = browserHistory;
+// window.browserHistory = browserHistory;
+
+// Tracking user authentication
+Tracker.autorun(() => {
+  const isAuthenticated = !!Meteor.userId();
+  const pathname = browserHistory.getCurrentLocation().pathname;
+  const isUnauthenticatedPage = unauthenticatedPages.includes(pathname);
+  const isAuthenticatedPage = authenticatedPages.includes(pathname);
+
+  // if unauthenticated user wants to go to page requiring authentication
+  if(isUnauthenticatedPage && isAuthenticated) {
+    browserHistory.push('/');
+  }else if (isAuthenticatedPage && !isAuthenticated) {
+    browserHistory.push('/login');
+  }
+});
+
 
 // Routing
 const routes = (
