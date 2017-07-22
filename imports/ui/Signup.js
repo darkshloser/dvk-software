@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
-import { Appconsts } from '../globals/Appconsts';
+import { Appconsts, Redirections } from '../globals/Appconsts';
 import { Accounts } from 'meteor/accounts-base';
 
 
@@ -55,7 +55,7 @@ export default class Signup extends React.Component {
                 <input type="password" ref="confirm_password" name="confirm_password" placeholder="Confirm password"/>
                 <button>Create an account</button>
             </form>
-            <Link to="/login">I already have an account.</Link>
+            <Link to="/login">{Redirections.msgExistingAccount}</Link>
         </div>
       );
   }

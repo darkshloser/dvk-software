@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import { Link } from 'react-router';
-import { Appconsts } from '../globals/Appconsts';
+import { Appconsts, Redirections } from '../globals/Appconsts';
 // import { Accounts } from 'meteor/accounts-base';
 
 
@@ -47,7 +47,7 @@ export default class Login extends React.Component {
                 <input type="password" ref="password" name="password" placeholder="Password"/>
                 <button>Login</button>
             </form>
-            <Link to="/signup">"I don't have an account."</Link>
+            <Link to="/signup">{Redirections.msgNoAccount}</Link>
         </div>
       );
   }

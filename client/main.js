@@ -14,6 +14,10 @@ import AccountManager from '../imports/ui/AccountManager';
 import NotFound from '../imports/ui/NotFound';
 import Login from '../imports/ui/Login';
 
+// Pages which can and can't be loaded regarding authentication status (if user is loged in or not)
+const unauthenticatedPages = ['/signup', '/login'];
+const authenticatedPages = ['/profilesettings', '/approom', '/accountmanager'];
+
 // browserHistory
 // window.browserHistory = browserHistory;
 
@@ -24,13 +28,14 @@ Tracker.autorun(() => {
   const isUnauthenticatedPage = unauthenticatedPages.includes(pathname);
   const isAuthenticatedPage = authenticatedPages.includes(pathname);
 
-  // if on signup or loging page and user is logged in redirect
-  
+  // if unauthenticated user wants to go to page requiring authentication
+  if(isUnauthenticatedPage && isAuthenticated) {
+    browserHistory.push('/');
+  }else if (isAuthenticatedPage && !isAuthenticated) {
+    browserHistory.push('/login');
+  }
 });
 
-// Pages which can and can't be loaded regarding authentication status (if user is loged in or not)
-const unauthenticatedPages = ['/', '/signup', '/login'];
-const authenticatedPages = ['/profilesettings', '/approom', '/accountmanager'];
 
 // Routing
 const routes = (
