@@ -30,9 +30,9 @@ Tracker.autorun(() => {
 
   // if unauthenticated user wants to go to page requiring authentication
   if(isUnauthenticatedPage && isAuthenticated) {
-    browserHistory.push('/');
+    browserHistory.replace('/');
   }else if (isAuthenticatedPage && !isAuthenticated) {
-    browserHistory.push('/login');
+    browserHistory.replace('/login');
   }
 });
 

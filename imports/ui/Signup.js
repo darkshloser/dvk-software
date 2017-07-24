@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
-import { Appconsts, Redirections } from '../globals/Appconsts';
+import { Appconsts, Redirections, Wornings, Errors } from '../globals/Appconsts';
 import { Accounts } from 'meteor/accounts-base';
 
 
@@ -31,12 +31,22 @@ export default class Signup extends React.Component {
       status: ''
     }
 
-    if(email != '' && password === confirm_password){
-      console.log(email + ' - ' + password);
-      Accounts.createUser({email, password, profile}, (err)=>{
-        if(err){console.log('Error accured during signup: ', err);}
-      });
+    // Verify password
+    if (password.length < 9) {
+      return this.setState({error: Errors.msgErrPasswordLength })
+    } else if (password === confirm_password) {
+      return this.setState({error: Errors.msgErrPasswordConfirmation })
     }
+
+    // Verify user Sign up information
+    Accounts.createUser({email, password, profile}, (err)=>{
+      if (err) {
+        this.setState({error: err.reason});
+      } else {
+        this.setState({error: ''});
+      }
+    });
+
 
     // this.setState({
     //   error: "Something went wrong!!!"
@@ -48,7 +58,7 @@ export default class Signup extends React.Component {
             <h1>Join to {Appconsts.app_name}</h1>
             <p>Please sign up with your real name and email address.</p>
             {this.state.error ? <p>{this.state.error}</p> : undefined }
-            <form onSubmit={this.onSubmit.bind(this)}>
+            <form onSubmit={this.onSubmit.bind(this)} noValidate>
                 <input type="First name" ref="profile_name" name="name" placeholder="First name"/>
                 <input type="email" ref="email" name="email" placeholder="Email"/>
                 <input type="password" ref="password" name="password" placeholder="Password"/>

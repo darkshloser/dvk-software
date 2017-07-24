@@ -12,7 +12,9 @@ export let Redirections = {
 };
 
 export let Errors = {
-    msgErr: 'Error is: '
+    msgErr: 'Error is: ',
+    msgErrPasswordLength: 'Password length must be more than 8 characters long',
+    msgErrPasswordConfirmation: 'Initial password and confirmation password are not equal'
 };
 
 export let Wornings = {
