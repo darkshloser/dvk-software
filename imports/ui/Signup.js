@@ -34,7 +34,7 @@ export default class Signup extends React.Component {
     // Verify password
     if (password.length < 9) {
       return this.setState({error: Errors.msgErrPasswordLength })
-    } else if (password === confirm_password) {
+    } else if (password !== confirm_password) {
       return this.setState({error: Errors.msgErrPasswordConfirmation })
     }
 

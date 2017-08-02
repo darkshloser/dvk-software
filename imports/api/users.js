@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
 import { Accounts } from 'meteor/accounts-base';
+import { Mongo } from 'meteor/mongo';
 
 
 Accounts.validateNewUser((user) => {
@@ -19,3 +20,5 @@ Accounts.validateNewUser((user) => {
 
     return true;
 });
+
+export const Users = new Mongo.Collection('users');
